@@ -1,5 +1,7 @@
 package com.juansilva.workshopmongo3.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +21,8 @@ public class PostService {
 			.orElseThrow(() -> new ObjectNotFoundException("OBJETO NÃO ENCONTRADO"));
 	}
 	
+	public List<Post> findByTitle(String text){
+		return  repo.findByTitleContainingIgnoreCase(text);
+	}
 
 }
