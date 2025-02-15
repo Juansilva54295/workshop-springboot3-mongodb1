@@ -1,6 +1,7 @@
 package com.juansilva.workshopmongo3.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.juansilva.workshopmongo3.dominio.User;
+import com.juansilva.workshopmongo3.dto.UserDTO;
 import com.juansilva.workshopmongo3.service.UserService;
 
 @RestController
@@ -21,6 +23,8 @@ public class UserResources {
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<User>> findAll(){
 		List<User> list = service.findAll();;
+		List<UserDTO> listDto = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
         return ResponseEntity.ok().body(list);
 	}
 }
+  
